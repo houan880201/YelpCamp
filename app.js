@@ -7,6 +7,7 @@ var express     = require("express"),
     seedDB      = require("./seeds"),
     passport    = require("passport"),
     LocalStrategy   = require("passport-local"),
+    methodOverride = require("method-override"),
     User        = require("./models/user");
 
     //require routes
@@ -29,6 +30,7 @@ app.use(require("express-session")({
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
+app.use(methodOverride("_method"));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
